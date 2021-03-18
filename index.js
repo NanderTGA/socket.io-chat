@@ -9,12 +9,13 @@ app.get('/', (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("someone connected");
-  io.emit("user joined")
+  io.emit("user joined");
   socket.on("disconnect", () => {
     console.log("someone disconnected");
-    io.emit("user left")
+    io.emit("user left");
   });
-  socket.on("chat message", (msg) => {
+  socket.on("chat message", (data) => {
+    msg = data.username + ": " + data.chatmsg;
     io.emit("chat message", msg);
   });
 });
