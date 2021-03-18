@@ -1,3 +1,7 @@
+/*
+This is my socket.io chat implementation
+*/
+
 const express = require("express");
 const app = express();
 const httpServer = require("http").createServer(app);
