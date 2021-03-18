@@ -1,3 +1,5 @@
+var username = prompt("Please enter a username:");
+
 var socket = io();
 
 var messages = document.getElementById('messages');
@@ -7,7 +9,7 @@ var input = document.getElementById('input');
 form.addEventListener('submit', function(e) {
 	e.preventDefault();
 	if (input.value) {
-		socket.emit('chat message', input.value);
+		socket.emit('chat message', {chatmsg : input.value, username : username});
 		input.value = '';
 	}
 });
