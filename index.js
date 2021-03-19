@@ -19,10 +19,27 @@ io.on("connection", (socket) => {
     io.emit("user left");
   });
   socket.on("chat message", (data) => {
-    msg = data.username + ": " + data.chatmsg;
-    io.emit("chat message", msg);
+    if (data.chatmsg.startsWith("/")) {
+      cmd = data.chatmsg;
+      cmd = cmd.substring(1);
+      processCommand(cmd, socket);
+    } else {
+      msg = data.username + ": " + data.chatmsg;
+      io.emit("chat message", msg);
+    }
   });
 });
+
+function processCommand(command, socket) {
+  switch (command) {
+    case "help":
+      socket.emit("chat message", "No commands yet")
+      break;
+    case "me":
+      socket.emit("chat message", "In development");
+      break;
+  }
+}
 
 app.use("/client", express.static(__dirname + "/client"));
 

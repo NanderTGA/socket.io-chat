@@ -25,4 +25,18 @@ socket.on('disconnect', function() {
 	alert('Oh no, you got disconnected');
 });
 
-socket.on('')
+socket.on('user joined', function() {
+  var item = document.createElement('li');
+  item.textContent = "user joined";
+  //item.
+  messages.appendChild(item);
+	window.scrollTo(0, document.body.scrollHeight);
+});
+
+socket.on('user left', function() {
+  var item = document.createElement('li');
+  item.textContent = "user left";
+  //item.
+  messages.appendChild(item);
+	window.scrollTo(0, document.body.scrollHeight);
+});
