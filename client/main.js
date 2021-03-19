@@ -24,3 +24,5 @@ socket.on('chat message', function(msg) {
 socket.on('disconnect', function() {
 	alert('Oh no, you got disconnected');
 });
+
+socket.on('')
