@@ -32,8 +32,11 @@ io.on("connection", (socket) => {
 
 function processCommand(command, socket) {
   switch (command) {
+    case "":
+      socket.emit("chat message", "You gotta tell me a command");
+      break;
     case "help":
-      socket.emit("chat message", "No commands yet")
+      socket.emit("chat message", "No commands yet");
       break;
     case "me":
       socket.emit("chat message", "In development");
