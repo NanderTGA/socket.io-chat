@@ -2,6 +2,7 @@
 This is my socket.io chat implementation
 */
 
+try {
 const express = require("express");
 const app = express();
 const httpServer = require("http").createServer(app);
@@ -17,6 +18,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("someone disconnected");
     io.emit("user left");
+    socket.disconnect()
   });
   socket.on("chat message", (data) => {
     if (data.chatmsg.startsWith("/")) {
@@ -36,10 +38,19 @@ function processCommand(command, socket) {
       socket.emit("chat message", "You gotta tell me a command");
       break;
     case "help":
-      socket.emit("chat message", "No commands yet");
+      socket.emit("chat message", "/help");
+      socket.emit("chat message", "/me");
+      socket.emit("chat message", "/say");
+      socket.emit("chat message", "/crash");
       break;
     case "me":
       socket.emit("chat message", "In development");
+      break;
+    case "say":
+      io.emit("chat message", "/say is in development, try /help for all the commands btw");
+      break;
+    case "crash":
+      socket.destroy()
       break;
   }
 }
@@ -49,3 +60,6 @@ app.use("/client", express.static(__dirname + "/client"));
 httpServer.listen(3000, () => {
   console.log("Server started on port 3000");
 });
+} catch(err) {
+  restart
+}
